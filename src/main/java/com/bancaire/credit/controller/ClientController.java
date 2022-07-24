@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -34,7 +36,11 @@ public class ClientController {
 	public List<Client> getAllClients(){
 		return clientRepository.findAll();
 	}
-	
+	@GetMapping("/client/{nom}")
+	public List<Client> getClientByName(@PathVariable String nom){
+		return clientRepository.getByName(nom);
+	}
+		
 	//add client
 	@PostMapping("/clients")
 	public Client createClient(@RequestBody Client client) {
@@ -47,7 +53,7 @@ public class ClientController {
 		Client client = clientRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Client not exist with this id : "+id));
 		return ResponseEntity.ok(client);
-	}
+	}	
 	
 	//update client details
 	@PutMapping("/clients/{id}")

@@ -7,11 +7,13 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -43,9 +45,12 @@ public class Client {
 	@Column(name = "civilite")
 	private String civilite;
 	
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "fid", referencedColumnName = "id")
-	List<Compte> comptes = new ArrayList<>();
+	/*@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id", referencedColumnName = "id")
+	List<Compte> comptes = new ArrayList<>();*/
+	
+	/*@OneToOne(cascade = CascadeType.ALL)
+	private Compte compte;*/
 	
 	public Client() {
 		super();
@@ -126,6 +131,14 @@ public class Client {
 	public void setCivilite(String civilite) {
 		this.civilite = civilite;
 	}
+	
+	/*public Compte getComptes() {
+		return compte;
+	}
+
+	public void setComptes(Compte compte) {
+		this.compte = compte;
+	}*/
 
 	@Override
 	public String toString() {

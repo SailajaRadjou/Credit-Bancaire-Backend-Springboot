@@ -2,9 +2,14 @@ package com.bancaire.credit.model;
 
 import java.sql.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -30,13 +35,16 @@ public class Compte {
 	@Column(name = "taux")
 	private double taux;
 	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id", referencedColumnName = "id")
+	private Client client;
 	
 	public Compte() {
 		super();
 	}
 
 
-	public Compte(String num, Date dateCreation, double solde, String type, double decouvert, double taux) {
+	public Compte(String num, Date dateCreation, double solde, String type, double decouvert, double taux, Client client) {
 		super();
 		this.num = num;
 		this.dateCreation = dateCreation;
@@ -44,6 +52,7 @@ public class Compte {
 		this.type = type;
 		this.decouvert = decouvert;
 		this.taux = taux;
+		this.client = client;
 	}
 
 
@@ -106,11 +115,19 @@ public class Compte {
 		this.taux = taux;
 	}
 
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
+	
 
 	@Override
 	public String toString() {
 		return "Compte [num=" + num + ", dateCreation=" + dateCreation + ", solde=" + solde + ", type=" + type
-				+ ", decouvert=" + decouvert + ", taux=" + taux + "]";
+				+ ", decouvert=" + decouvert + ", taux=" + taux + ", client = "+ client+ "]";
 	}
 	
 	
